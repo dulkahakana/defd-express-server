@@ -1,73 +1,42 @@
 import path from 'path'
+import express from 'express'
 
-
-import { readDictionary, writeDictionary } from './service/storage.service.js'
-import { sortWordsList, addWordInSection, removeWordInSection } from './service/dictionaty.service.js'
+import { addWordDictionary, removeWordDictionary, logDictionary, getDictionary } from './service/dictionaty.service.js'
 import { myLogBlue, myLogRed, myLogGreen } from './service/mylog.service.js'
 
 
-
-// название файла словаря
+const PORT = 5000
+// ? название файла словаря
 const fileName = 'ENGLISH_v2.JSON'
-// путь до словаря
+// ? путь до словаря
 const filePath = path.resolve('src', fileName)
 // myLogRed(filePath)
+const app = express()
 
-
-
-// ? добавление слова + сортировка
-// ? перезапись файла
-const addWordDictionary = async (path, newWord, newWordTranslation, optionSort = 'english') => {
+app.get('/dictionary', async (req, res) => {
     try {
-        let dictionary = await readDictionary(path)
-        dictionary = addWordInSection(dictionary, newWord, newWordTranslation)
-        for (let key in dictionary) {
-            dictionary[key] = sortWordsList(dictionary[key], optionSort)
-        }
-        await writeDictionary(path, dictionary)
-        myLogBlue(`${newWord} - ${newWordTranslation}`)
-        myLogGreen('Успешно добавлено')
+        const dictionary = await getDictionary(filePath)
+        res.send(dictionary)
     } catch(err) {
         myLogRed(err)
     }
-}
+})
 
-// ? удаление файла + сортировка
-// ? перезапись файла
-const removeWordDictionary = async (path, removeWord, optionSort = 'english') => {
-    try {
-        let dictionary = await readDictionary(path)
-        dictionary = removeWordInSection(dictionary, removeWord)
-        for (let key in dictionary) {
-            dictionary[key] = sortWordsList(dictionary[key], optionSort)
-        }
-        await writeDictionary(path, dictionary)
-        myLogBlue(`${removeWord}`)
-        myLogGreen('Удалено')
-    } catch(err) {
-        myLogRed(err)
-    }
-}
+// app.get('/dictionary/add/:word', (req, res) => {
+//     const rap = req.params.word
+//     myLogBlue(`id: ${rap}`)
+// })
 
-// ? словарь в консоль
-const logDictionary = async (path) => {
-    try {
-        const dictionary = await readDictionary(path)
-        console.log(dictionary)
-    } catch(err) {
-        myLogRed(err)
-    }
-}
+
+app.listen(PORT, () => myLogGreen(`REST API ENGLISH running on localhost:${PORT}`))
 
 // удалить слово и перезапишет файл
 // removeWordInDictionary(filePath, fileName, 'layout')
-removeWordDictionary(filePath, 'xxx')
+// removeWordDictionary(filePath, 'value')
 
 // добавить слово и перезаписать файл
 // addWordInDictionary(filePath, fileName, 'layout', 'расположение, планировка')
 // addWordDictionary(filePath, 'exist', 'существовать')
-// addWordDictionary(filePath, 'import', 'импортировать')
-
-
+// addWordDictionary(filePath, 'implements', 'реализовать')
 
 // logDictionary(filePath)
