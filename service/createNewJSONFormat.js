@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 
-const filePath = path.join(__dirname, '../public')
+const filePath = path.join(__dirname, '../src')
 const oldFormatFileName = 'ENGLISH.JSON'
 const newFormatFileName = 'ENGLISH_v2.JSON'
 
@@ -18,19 +18,6 @@ const writeFileAsync = async (path, data) => {
         })
     })
 }
-
-// const appendFileAsync = async (path, data) => {
-//     return new Promise((resolve, reject) => {
-//         fs.appendFile(path, data, (err) => {
-//             if (err) {
-//                 return reject(err.message)
-//             } else {
-//                 resolve()
-//             }
-//         })
-//     })
-// }
-
 
 const readFileAsync = async (path) => {
     return new Promise((resolve, reject) => fs.readFile(path, {encoding: 'utf-8'}, (err, data) => {
@@ -57,8 +44,8 @@ const sortWordsList = (list, optionSort) => {
     return [...list].sort((a, b) => a[optionSort].localeCompare(b[optionSort]))
 }
 
-
-readFileAsync(path.resolve(filePath, oldFormatFileName))
+const formatAndSaveDictionary = async (oldFormatFileName, newFormatFileName) => {
+    await readFileAsync(path.resolve(filePath, oldFormatFileName))
     .then(data => JSON.parse(data))
     .then(data => data[0])
     .then(data => {
@@ -81,5 +68,11 @@ readFileAsync(path.resolve(filePath, oldFormatFileName))
         }
         return data
     })
-    .then(data => writeFileAsync(path.resolve(filePath, newFormatFileName), JSON.stringify(data)))
+    .then(data => {
+        writeFileAsync(path.resolve(filePath, newFormatFileName), JSON.stringify(data))
+        console.log('Dictionary is created')
+    })
     .catch(err => console.log(err))
+}
+
+formatAndSaveDictionary(oldFormatFileName, 'ENGLISH_test_dictionary_2.JSON')

@@ -1,14 +1,15 @@
 const path = require('path')
 const fs = require('fs')
+const chalk = require('chalk')
 
-const filePath = path.join(__dirname, 'public')
+console.log(chalk.black.bgBlueBright(' CHALK TEST '))
+
+// путь до словаря
+const filePath = path.join(__dirname, 'src')
+// название файла словаря
 const fileName = 'ENGLISH_v2.JSON'
 
-
-
-
-// ? промисы
-
+// перезаписывает файл
 const writeFileAsync = async (path, data) => {
     return new Promise((resolve, reject) => {
         fs.writeFile(path, data, (err) => {
@@ -21,18 +22,7 @@ const writeFileAsync = async (path, data) => {
     })
 }
 
-const appendFileAsync = async (path, data) => {
-    return new Promise((resolve, reject) => {
-        fs.appendFile(path, data, (err) => {
-            if (err) {
-                return reject(err.message)
-            } else {
-                resolve()
-            }
-        })
-    })
-}
-
+// читает файлы, раскодирует 
 const readFileAsync = async (path) => {
     return new Promise((resolve, reject) => fs.readFile(path, {encoding: 'utf-8'}, (err, data) => {
         if (err) {
@@ -43,16 +33,9 @@ const readFileAsync = async (path) => {
     }))
 }
 
+// сортирует переданный массив объектов (list) по ключу объетка (optionSort)
 const sortWordsList = (list, optionSort) => {
     return [...list].sort((a, b) => a[optionSort].localeCompare(b[optionSort]))
-}
-
-// словарь в консоль
-const logDictionary = async (filePath, fileName) => {
-    await readFileAsync(path.resolve(filePath, fileName))
-    .then(data => JSON.parse(data))
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
 }
 
 // добавляет новое слово в словарь
@@ -76,7 +59,7 @@ const removeWordInSection = (dictionary, word) => {
 // ? добавление слова + сортировка
 // ? перезапись файла
 const addWordInDictionary = async(filePath, fileName, newWord, newWordTranslation, optionSort = 'english') => {
-    await readFileAsync(path.resolve(filePath, fileName))
+    await readFileAsync(path.resolve(filePath, fileName))    
         .then(data => JSON.parse(data))
         .then(data => {
             addWordInSection(data, newWord, newWordTranslation)
@@ -89,7 +72,6 @@ const addWordInDictionary = async(filePath, fileName, newWord, newWordTranslatio
             return data
         })
         .then(data => writeFileAsync(path.resolve(filePath, fileName), JSON.stringify(data)))
-        // .then (data => console.log(data))
         .catch(err => console.log(err))
 }
 
@@ -109,17 +91,27 @@ const removeWordInDictionary = async(filePath, fileName, removeWord, optionSort 
             return data
         })
         .then(data => writeFileAsync(path.resolve(filePath, fileName), JSON.stringify(data)))
-        // .then (data => console.log(data))
         .catch(err => console.log(err))
 }
 
+// словарь в консоль
+const logDictionary = async (filePath, fileName) => {
+    try {
+        const dictionary = JSON.parse(await readFileAsync(path.resolve(filePath, fileName)))
+        console.log(dictionary)
+    } catch(err) {
+        console.log(err)
+    }
+}
+
 // удалить слово и перезапишет файл
-// removeWordInDictionary(filePath, fileName, 'await')
+// removeWordInDictionary(filePath, fileName, 'layout')
 
 // добавить слово и перезаписать файл
-// addWordInDictionary(filePath, fileName, 'await', 'ждать')
+// addWordInDictionary(filePath, fileName, 'layout', 'расположение, планировка')
 
-logDictionary(filePath, fileName)
+
+// logDictionary(filePath, fileName)
 
 
 

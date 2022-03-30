@@ -28,3 +28,16 @@
 
 //     console.log('File created')
 // })
+
+// ? асинхронное добавление в файл
+// const appendFileAsync = async (path, data) => {
+//     return new Promise((resolve, reject) => {
+//         fs.appendFile(path, data, (err) => {
+//             if (err) {
+//                 return reject(err.message)
+//             } else {
+//                 resolve()
+//             }
+//         })
+//     })
+// }
