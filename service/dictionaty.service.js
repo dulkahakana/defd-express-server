@@ -75,3 +75,14 @@ export const getDictionary = async (path) => {
         myLogRed(err)
     }
 }
+
+export const getDictionarySection = async (path, sectionName) => {
+    try {
+        const dictionary = await readDictionary(path)
+        const sectionDictionary = dictionary[sectionName]
+        return sectionDictionary
+    } catch(err) {
+        myLogRed(err)
+    }
+}
+

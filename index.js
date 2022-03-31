@@ -1,7 +1,7 @@
 import path from 'path'
 import express from 'express'
 
-import { addWordDictionary, removeWordDictionary, logDictionary, getDictionary } from './service/dictionaty.service.js'
+import { addWordDictionary, removeWordDictionary, logDictionary, getDictionary, getDictionarySection } from './service/dictionaty.service.js'
 import { myLogBlue, myLogRed, myLogGreen } from './service/mylog.service.js'
 
 
@@ -22,10 +22,15 @@ app.get('/dictionary', async (req, res) => {
     }
 })
 
-// app.get('/dictionary/add/:word', (req, res) => {
-//     const rap = req.params.word
-//     myLogBlue(`id: ${rap}`)
-// })
+app.get('/dictionary/:section', async (req, res) => {
+    try {
+        const sectionName = req.params.section
+        const sectionDictionary = await getDictionarySection(filePath, sectionName)
+        res.send(sectionDictionary)
+    } catch(err) {
+        myLogRed(err)
+    }
+})
 
 
 app.listen(PORT, () => myLogGreen(`REST API ENGLISH running on localhost:${PORT}`))
