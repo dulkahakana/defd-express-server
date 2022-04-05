@@ -1,4 +1,4 @@
-# REST-API-ENGLISH
+# Express JS сервер для "deft-react-app"
 
-Имитация сервера REST API, без базы данных.
-Вместо базы данных перезаписываем 'ENGLISH_v2.JSON', созданный посредвам 'createNewJSONFormat.js' из файла 'ENGLISH.JSON', который заполнялся вручную.
+
+Вместо базы данных 'ENGLISH_v2.JSON'
