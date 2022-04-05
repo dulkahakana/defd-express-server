@@ -1,12 +1,12 @@
 {
-  "name": "04-REST-API-English",
-  "version": "1.0.0",
+  "name": "deft-express-server",
+  "version": "1.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "defd-server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "nodemon defd-server.js",
+    "start": "node defd-server.js"
   },
   "keywords": [],
   "author": "",
