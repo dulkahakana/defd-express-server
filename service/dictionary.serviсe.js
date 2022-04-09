@@ -44,9 +44,6 @@ export default class Dictionary {
             }
             await writeDictionary(path, dictionary)
 
-            myGreenText(FormatDate.getDate())
-            myLogBlue(`english: ${newWord}, russian: ${newWordTranslation}`)
-            myLogGreen('успешно добавлено')
         } catch (err) {
             myLogRed(err)
         }

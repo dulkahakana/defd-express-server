@@ -3,7 +3,7 @@ import express from 'express'
 
 
 import Dictionary from './service/dictionary.serviсe.js'
-import { myLogBlue, myLogRed, myLogGreen, myBlueText, myRedText } from './service/mylog.service.js'
+import { myLogBlue, myLogRed, myLogGreen, myBlueText, myRedText, myGreenText } from './service/mylog.service.js'
 import FormatDate from './service/date.serviсe.js'
 
 
@@ -13,21 +13,22 @@ const dictionaryPath = path.resolve('src', dictionaryName)
 const app = express()
 
 app.use(express.static('public'))
+app.use(express.json())
+
+app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', ['*']);
+    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
 app.get('/', (req, res) => {
-
-    res.header("Access-Control-Allow-Origin", "*")
-    res.header("Access-Control-Allow-Methods", "*")
-
     res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 app.get('/dictionary/API', async (req, res) => {
     try {
         const dictionary= await Dictionary.getDictionary(dictionaryPath)
-
-        res.header("Access-Control-Allow-Origin", "*")
-        res.header("Access-Control-Allow-Methods", "*")
 
         res.send(dictionary)
     } catch(err) {
@@ -39,9 +40,6 @@ app.get('/dictionary/API', async (req, res) => {
 app.get('/dictionary/API/sectionslist', async (req, res) => {
     try {
         const sectionsListName = await Dictionary.getSectionsName(dictionaryPath)
-
-        res.header("Access-Control-Allow-Origin", "*")
-        res.header("Access-Control-Allow-Methods", "*")
 
         res.send(sectionsListName)        
     } catch(err) {
@@ -55,10 +53,23 @@ app.get('/dictionary/API/:section', async (req, res) => {
         const sectionName = req.params.section
         const sectionDictionary = await Dictionary.getSection(dictionaryPath, sectionName)
 
-        res.header("Access-Control-Allow-Origin", "*")
-        res.header("Access-Control-Allow-Methods", "*")
-
+        myLogBlue(FormatDate.getDate())
+        myGreenText(`Запрос секции: ${sectionName}`)
         res.send(sectionDictionary)
+    } catch(err) {
+        myLogRed(FormatDate.getDate())
+        myRedText(err)
+    }
+})
+
+app.post('/dictionary/API/addword', async (req, res) => {
+    try {
+        const {english, russian} = req.body
+        
+        await Dictionary.addWord(dictionaryPath, english, russian)
+        myLogBlue(FormatDate.getDate())
+        myBlueText('В словарь добавлено новое слово:')
+        myGreenText(`${english} - ${russian}`)
     } catch(err) {
         myLogRed(FormatDate.getDate())
         myRedText(err)
@@ -77,11 +88,9 @@ app.listen(PORT, () => {
 
 
 // ? удалить слово и перезапишет файл
-// ? removeWordInDictionary(dictionaryPath, fileName, 'layout')
 // Dictionary.removeWord(dictionaryPath, 'value')
 
 // ? добавить слово и перезаписать файл
-// ? addWordInDictionary(dictionaryPath, fileName, 'layout', 'расположение, планировка')
 // Dictionary.addWord(dictionaryPath, 'exist', 'существовать')
 // Dictionary.addWord(dictionaryPath, 'implements', 'реализовать')
 
