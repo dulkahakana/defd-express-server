@@ -83,6 +83,7 @@ app.listen(PORT, () => {
     myBlueText(`Запрос словаря: http://localhost:${PORT}/dictionary/API`)
     myBlueText(`Запрос списка имен секций словаря: http://localhost:${PORT}/dictionary/API/sectionslist`)
     myBlueText(`Запрос секции словаря: http://localhost:${PORT}/dictionary/API/:section-name`)
+    myGreenText(`Добавление нового слова: http://localhost:${PORT}/dictionary/API/addword`)
     myBlueText('Остановить сервер ctrl: + c')
 })
 
