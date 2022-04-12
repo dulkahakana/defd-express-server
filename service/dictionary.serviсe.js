@@ -64,6 +64,20 @@ export default class Dictionary {
         }
     }
 
+    // ? кол-во слов в словаре
+    static async getQuantity(path) {
+        try {
+            let dictionary = await readDictionary(path)
+            let count = 0
+            for (let key in dictionary) {                
+                count += dictionary[key].length
+            }
+            return {quantitywords: count}
+        } catch (err) {
+            myLogRed(err)
+        }
+    }
+
     // ? словарь в консоль
     static async log(path) {
         try {

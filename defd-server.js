@@ -48,6 +48,16 @@ app.get('/dictionary/API/sectionslist', async (req, res) => {
     }
 })
 
+app.get('/dictionaty/API/quantitywords', async (req, res) => {
+    try {
+        const quantitywords = await Dictionary.getQuantity(dictionaryPath)
+        res.send(quantitywords)
+    } catch (err) {
+        myLogRed(FormatDate.getDate())
+        myRedText(err)
+    }
+})
+
 app.get('/dictionary/API/:section', async (req, res) => {
     try {
         const sectionName = req.params.section
@@ -75,6 +85,8 @@ app.post('/dictionary/API/addword', async (req, res) => {
         myRedText(err)
     }
 })
+
+
 
 
 app.listen(PORT, () => {
