@@ -11,6 +11,7 @@ const PORT = 5000
 const dictionaryName = 'ENGLISH_v2.JSON'
 const dictionaryPath = path.resolve('src', dictionaryName)
 const app = express()
+app.disable('x-power-by')
 
 app.use(express.static('public'))
 app.use(express.json())
