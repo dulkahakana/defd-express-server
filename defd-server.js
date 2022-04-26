@@ -113,20 +113,10 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
     myLogBlue(FormatDate.getDate())
     myLogGreen(`Сервер "Dictionary english for development" запущен на http://localhost:${PORT}/`)
-    myBlueText(`Запрос словаря GET: http://localhost:${PORT}/dictionary/API`)
-    myBlueText(`Запрос списка имен секций словаря GET: http://localhost:${PORT}/dictionary/API/sectionslist`)
-    myBlueText(`Запрос секции словаря GET: http://localhost:${PORT}/dictionary/API/:section-name`)
-    myGreenText(`Добавление нового слова POST: http://localhost:${PORT}/dictionary/API`)
-    myGreenText(`Удаление слова DELETE: http://localhost:${PORT}/dictionary/API`)
-    myBlueText('Остановить сервер ctrl: + c')
+    myBlueText(`Запрос словаря: GET http://localhost:${PORT}/dictionary/API`)
+    myBlueText(`Запрос списка имен секций словаря: GET http://localhost:${PORT}/dictionary/API/sectionslist`)
+    myBlueText(`Запрос секции словаря: GET http://localhost:${PORT}/dictionary/API/:section-name`)
+    myGreenText(`Добавление нового слова: POST http://localhost:${PORT}/dictionary/API`)
+    myRedText(`Удаление слова: DELETE http://localhost:${PORT}/dictionary/API`)
+    myLogGreen('Остановить сервер ctrl: + c')
 })
-
-
-// ? удалить слово и перезапишет файл
-// Dictionary.removeWord(dictionaryPath, 'value')
-
-// ? добавить слово и перезаписать файл
-// Dictionary.addWord(dictionaryPath, 'exist', 'существовать')
-// Dictionary.addWord(dictionaryPath, 'implements', 'реализовать')
-
-// Dictionary.log(dictionaryPath)
