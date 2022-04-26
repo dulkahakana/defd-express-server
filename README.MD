@@ -12,15 +12,15 @@
 При запуске выдает в логах время запуска, используя *service/date.serviсe.js* и описание возможных запросов. Для вывода в консоль используется *service/mylog.service.js*.
 ## Роуты:
 - **app.get()**
-    `/` - собранное React приложение, [deft-react-app](https://github.com/dulkahakana/defd-react-app);
-    `/dictionary/API` - все содержимое *ENGLISH_v2.JSON*;
-    `/dictionary/API/sectionslist` - список названий секций (алфавит);
-    `/dictionaty/API/quantitywords` - кол-во слов в словаре;
-    `/dictionary/API/:section` - содержимое секции, переданной в параметрах. Выводит в консоль время запроса и имя, запрашиваемой секции;
+    1. `/` - собранное React приложение, [deft-react-app](https://github.com/dulkahakana/defd-react-app);
+    2. `/dictionary/API` - все содержимое *ENGLISH_v2.JSON*;
+    3. `/dictionary/API/sectionslist` - список названий секций (алфавит);
+    4. `/dictionaty/API/quantitywords` - кол-во слов в словаре;
+    5. `/dictionary/API/:section` - содержимое секции, переданной в параметрах. Выводит в консоль время запроса и имя, запрашиваемой секции;
 - **app.post**
-    `/dictionary/API` - добавляет переданное слово (объект {english, russian}) в словарь. Выводит в консоль время запроса и добавленное слово;
+    1. `/dictionary/API` - добавляет переданное слово (объект {english, russian}) в словарь. Выводит в консоль время запроса и добавленное слово;
 - **app.delete**
-    `/dictionary/API` - удаляет переданное слово (объект {english, russian}) в словаре, используя значение `req.body.english`. Выводит в консоль время запроса и удаленное слово;
+    1. `/dictionary/API` - удаляет переданное слово (объект {english, russian}) в словаре, используя значение `req.body.english`. Выводит в консоль время запроса и удаленное слово;
 
 
 ## Клиентская часть на React 18 [deft-react-app](https://github.com/dulkahakana/defd-react-app)
