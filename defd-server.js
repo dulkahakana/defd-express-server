@@ -8,7 +8,9 @@ import FormatDate from './service/date.serviсe.js'
 
 
 const PORT = 5000
+// имя файла словаря
 const dictionaryName = 'ENGLISH_v2.JSON'
+// путь к файлу словаря
 const dictionaryPath = path.resolve('db', dictionaryName)
 const app = express()
 app.disable('x-power-by')
