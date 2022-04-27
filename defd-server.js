@@ -9,7 +9,7 @@ import FormatDate from './service/date.serviсe.js'
 
 const PORT = 5000
 const dictionaryName = 'ENGLISH_v2.JSON'
-const dictionaryPath = path.resolve('src', dictionaryName)
+const dictionaryPath = path.resolve('db', dictionaryName)
 const app = express()
 app.disable('x-power-by')
 
