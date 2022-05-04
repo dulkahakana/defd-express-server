@@ -1,10 +1,14 @@
-import path from 'path'
+import { fileURLToPath } from 'url'
+import path, { dirname } from 'path'
 import express from 'express'
 
 
 import Dictionary from './service/dictionary.serviсe.js'
 import { myLogBlue, myLogRed, myLogGreen, myBlueText, myRedText, myGreenText } from './service/mylog.service.js'
 import FormatDate from './service/date.serviсe.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 
 const PORT = 5000
